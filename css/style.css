@@ -1,0 +1,125 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noticia Text', serif;
+}
+h1{
+    font-size: 36px;
+    text-align: center;
+}
+h2{
+    font-size: 30px;
+    text-align: center;
+}
+h3{
+    font-size: 28px;
+}
+h4{
+    font-size: 24px;
+}
+nav i.material-icons{
+    font-size: 36px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.side-nav li>a>i.material-icons{
+    color: black;
+}
+.block_infos_slider{
+    background-color: #29b6f6;
+    padding: 20px 0;
+    width: 100%;
+    height: 100vh;
+}
+.infos_slider{
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+.italic{
+    font-style: italic;
+}
+.bike{
+    width: 100px;
+}
+
+.carousel .carousel-item > img{
+    width: 70%;
+}
+.carousel .indicators .indicator-item, .carousel .indicators .indicator-item.active{
+    background-color: black !important;
+}
+
+#map{
+    height: 400px;
+    margin: auto;
+}
+#infos, #reservation h4, #reservation p{
+    padding: 10px 20px;
+    color: white;
+}
+#infos .infos_span{
+    font-weight: bold;
+    font-style: italic;
+}
+.span_btn{
+    position: relative;
+    bottom: 4px;
+    right: 4px;
+    font-style: inherit;
+}
+#infos .material-icons{
+    position: relative;
+    left: 6px;
+}
+#blockReservation, #blockNoReservation, #blockClosed, #backToMap, #divCanvas, #blockSubmit, #blockCancel, #backToMap2{
+    text-align: center;
+}
+#divCanvas{
+    padding-bottom: 10px;
+}
+#canvas{
+    width: 290px;
+    height: 250px;
+    background-color: rgb(189,189,189);
+    margin: 20px 0;
+}
+.page-footer{
+    display: inline-block;
+    width: 100%;
+}
+.mlfooter{
+    padding: 10px;
+}
+footer a{
+    color: white;
+}
+
+@media (min-width: 600px) {
+    #map{
+        height: 500px;
+    }
+}
+
+@media (min-width: 992px) {
+    .block_infos_slider{
+        height: 450px;
+    }
+    .carousel.carousel-slider .carousel-item{
+        padding-top: 10px;
+    }
+    .carousel .indicators .indicator-item{
+        top: 28px;
+    }
+    #map{
+        height: 700px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #map{
+        height: 700px;
+    }
+}

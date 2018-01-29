@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Réservation de vélibs</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Noticia+Text" rel="stylesheet">
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+
+<nav class="light-blue lighten-1" role="navigation">
+  <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo"><i class="material-icons logoBike">directions_bike</i> Velib</a>
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="#index-banner"><i class="material-icons">slideshow</i> Diaporama</a></li>
+      <li><a href="#map"><i class="material-icons">map</i> Carte</a></li>
+    </ul>
+
+    <ul class="side-nav" id="nav-mobile">
+      <li><a href="#index-banner"><i class="material-icons">slideshow</i> Diaporama</a></li>
+      <li><a href="#map"><i class="material-icons">map</i> Carte</a></li>
+    </ul>
+  </div>
+</nav>
+
+<h1>Réservation de vélibs</h1>
+<div id="slider_infos" class="center-align">
+  <h2>Avant de réserver !</h2>
+  <p>Voici les informations concernant notre application de réservation de vélibs :</p>
+</div>
+<div class="row">
+  <div class="block_infos_slider">
+    <div class="infos_slider col s12 m4 offset-m2">
+      <h3>Quelques informations utiles</h3>
+      <ul>
+        <li>Étape 1 : Cliquez sur un regroupement de marqueur</li>
+        <li>Étape 2 : Choisissez votre station</li>
+        <li>Étape 3 : Appuyez sur réserver</li>
+        <li>Étape 4 : Signez et validez</li>
+      </ul>
+      <p class="center-align">Vous pouvez récupérez votre vélib</p>
+      <p class="center-align"><img class="bike" src="images/bike.svg"></p>
+    </div>
+    <div id="index-banner"class="carousel carousel-slider center col s12 m4" data-indicators="true">
+      <div class="carousel-item blue darken-1 white-text" href="#one!">
+        <img src="images/slider/image1.png">
+      </div>
+      <div class="carousel-item blue darken-1 white-text" href="#two!">
+        <img src="images/slider/image2.png">
+      </div>
+      <div class="carousel-item blue darken-1 white-text" href="#three!">
+        <img src="images/slider/image3.png">
+      </div>
+      <div class="carousel-item blue darken-1 white-text" href="#four!">
+        <img src="images/slider/image4.png">
+      </div>
+      <div class="carousel-item blue darken-1 white-text" href="#four!">
+        <img src="images/slider/image5.png">
+      </div>
+      <div class="carousel-item blue darken-1 white-text" href="#four!">
+        <img src="images/slider/image6.png">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div id="map" class="grid-example col s12 m12 l12 xl12"></div>
+</div>
+<br>
+<footer class="page-footer light-blue accent-3 center-align">
+  <div class="container">
+    <div class="row">
+      <p id="isReservation" class="white-text">Aucune réservation en cours</p>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      <span><a href="mentions.html">Mentions légales</a></span>
+    </div>
+  </div>
+</footer>
+
+<!--  Scripts-->
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGj-bVgqZ9Qw_CTPwYp9khGoXMeg38JwE&callback=VelibMap.initMap">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+<script src="js/VelibMap.js"></script>
+<script src="js/VelibOpenData.js"></script>
+<script src="js/VelibMarker.js"></script>
+<script src="js/VelibMarkerCluster.js"></script>
+<script src="js/VelibInfo.js"></script>
+<script src="js/VelibReservation.js"></script>
+<script src="js/VelibCanvas.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
