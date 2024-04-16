@@ -44,7 +44,9 @@ nav i.material-icons{
 .bike{
     width: 100px;
 }
-
+.carousel .carousel-item{
+    display: inherit;
+}
 .carousel .carousel-item > img{
     width: 70%;
 }
