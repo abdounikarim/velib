@@ -4,6 +4,7 @@
     const { Loader } = GMaps;
     import { PUBLIC_GOOGLEMAPS_API_KEY } from '$env/static/public';
     import {OpenDataLocation} from "../types/OpenDataLocation";
+    import Marker from "../components/Marker";
 
     // Bindings
     let mapElement: HTMLElement;
@@ -27,8 +28,12 @@
 
         let map = new Map(mapElement, {
             center: { lat: 45.7621258, lng: 4.8576067 },
+            mapId: "VELIB_MAP_ID",
             zoom: 13
         });
+
+        const marker = new Marker();
+        marker.initMarkers(map, locations);
     });
 </script>
 
