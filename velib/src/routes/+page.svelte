@@ -3,11 +3,21 @@
     import * as GMaps from "@googlemaps/js-api-loader";
     const { Loader } = GMaps;
     import { PUBLIC_GOOGLEMAPS_API_KEY } from '$env/static/public';
+    import {OpenDataLocation} from "../types/OpenDataLocation";
 
     // Bindings
     let mapElement: HTMLElement;
 
     onMount(async function () {
+        const locations: OpenDataLocation[] = [];
+
+        const data = await fetch(import.meta.env.VITE_OPEN_DATA_URL);
+
+        const jsonData = await data.json()
+        jsonData.forEach((station: OpenDataLocation) => {
+            locations.push(station)
+        })
+
         const loader = new Loader({
             apiKey: PUBLIC_GOOGLEMAPS_API_KEY,
             version: 'weekly'
