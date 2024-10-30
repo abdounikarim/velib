@@ -82,7 +82,7 @@ export default class Marker {
         });
 
         const markerCluster = new MarkerCluster();
-        await markerCluster.init(map, markers);
+        await markerCluster.init(markers, map);
     }
 };
 
