@@ -3,21 +3,15 @@
     import * as GMaps from "@googlemaps/js-api-loader";
     const { Loader } = GMaps;
     import { PUBLIC_GOOGLEMAPS_API_KEY } from '$env/static/public';
-    import {OpenDataLocation} from "../types/OpenDataLocation";
     import Marker from "../components/Marker";
+    import OpenData from "../components/OpenData";
 
     // Bindings
     let mapElement: HTMLElement;
 
     onMount(async function () {
-        const locations: OpenDataLocation[] = [];
-
-        const data = await fetch(import.meta.env.VITE_OPEN_DATA_URL);
-
-        const jsonData = await data.json()
-        jsonData.forEach((station: OpenDataLocation) => {
-            locations.push(station)
-        })
+        const openData = new OpenData();
+        const openDataStations = await openData.getData();
 
         const loader = new Loader({
             apiKey: PUBLIC_GOOGLEMAPS_API_KEY,
@@ -33,7 +27,7 @@
         });
 
         const marker = new Marker();
-        marker.initMarkers(map, locations);
+        marker.initMarkers(map, openDataStations);
     });
 </script>
 
