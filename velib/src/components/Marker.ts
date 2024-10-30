@@ -1,5 +1,9 @@
 import type {OpenDataLocation} from "../types/OpenDataLocation";
 import MarkerCluster from "./MarkerCluster";
+import blueDot from '../images/blue-dot.png';
+import greenDot from '../images/green-dot.png';
+import ltBlueDot from '../images/ltblue-dot.png';
+import redDot from '../images/red-dot.png';
 
 export default class Marker {
     bgcolor: string = '';
@@ -11,7 +15,7 @@ export default class Marker {
         const station = marker.name;
         if(sessionStation == station)
         {
-            marker.icon = 'https://maps.google.com/mapfiles/ms/icons/ltblue-dot.png';
+            marker.icon = ltBlueDot;
             this.animate(marker);
         }
     }
@@ -24,15 +28,15 @@ export default class Marker {
 
     icon(marker) {
         if (marker.status === 'OPEN' && marker.available_bikes > 0) {
-            this.image = 'https://maps.google.com/mapfiles/ms/icons/green-dot.png';
+            this.image = greenDot;
             this.bgcolor = 'green';
             return this.image;
         } else if (marker.status === 'OPEN' && marker.available_bikes == 0) {
-            this.image = 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+            this.image = blueDot;
             this.bgcolor = 'blue';
             return this.image;
         }
-        this.image = 'https://maps.google.com/mapfiles/ms/icons/red-dot.png';
+        this.image = redDot;
         this.bgcolor = 'red';
         return this.image;
     }
