@@ -1,0 +1,8 @@
+# Base service definition.
+# For dev:  docker compose up                                        (auto-applies compose.override.yaml)
+# For prod: docker compose -f compose.yaml -f compose.prod.yaml up
+services:
+  app:
+    build:
+      context: .
+    restart: unless-stopped

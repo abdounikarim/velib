@@ -1,4 +1,4 @@
+.pnpm-store/
 certs/
 node_modules/
 .env
-

@@ -1,0 +1,33 @@
+# Development environment override — applied automatically by docker compose.
+# Switches the build target to "dev" and mounts the source for hot-reload.
+services:
+  app:
+    build:
+      target: dev
+    ports:
+      - "${DEV_PORT:-5173}:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules   # keep node_modules inside the container
+    environment:
+      - NODE_ENV=development
+    restart: "no"
+    healthcheck:
+      test: wget -qO- --no-check-certificate https://localhost:5173 || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+  cypress:
+    image: cypress/included:13.17.0
+    profiles: [cypress]
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      - CYPRESS_baseUrl=https://app:5173
+      - NODE_TLS_REJECT_UNAUTHORIZED=0
+    volumes:
+      - .:/e2e
+    working_dir: /e2e

@@ -1,0 +1,10 @@
+# Production environment override.
+# Usage: docker compose -f compose.yaml -f compose.prod.yaml up -d
+services:
+  app:
+    build:
+      target: prod
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    environment:
+      - NODE_ENV=production
