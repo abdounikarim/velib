@@ -11,6 +11,7 @@ var VelibMap = {
                 lng: VelibMap.lng
             }
         });
+        VelibOpenData.getData();
         return VelibMap.map;
     },
 };
