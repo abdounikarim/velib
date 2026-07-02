@@ -9,12 +9,12 @@ tasks:
   # ---------------------------------------------------------------------------
 
   install:
-    desc: "Bootstrap the project: copy .env, generate certs, build containers, install deps"
+    desc: "Bootstrap the project: generate certs, build containers, install deps, run setup wizard"
     cmds:
-      - task: env
       - task: cert
       - task: dev
       - task: deps
+      - task: setup
 
   install:prod:
     desc: "Bootstrap for production: copy .env, build and start the nginx container"
@@ -48,6 +48,11 @@ tasks:
     desc: "Remove generated certificate files"
     cmds:
       - rm -f certs/tls.pem certs/tls.key
+
+  setup:
+    desc: "Run the interactive setup wizard (writes .env, installs extra deps)"
+    cmds:
+      - "{{.DC_EXEC}} node scripts/setup.mjs"
 
   # ---------------------------------------------------------------------------
   # Development

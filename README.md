@@ -15,27 +15,20 @@ task install
 ```
 
 This single command:
-1. Copies `.env.example` → `.env` (skipped if `.env` already exists)
-2. Generates a trusted HTTPS certificate via mkcert (skipped if certs already exist)
-3. Builds the Docker image and starts the dev container
-4. Installs dependencies inside the container
-
-Then fill in your API keys in `.env`:
-
-| Variable | Description |
-|----------|-------------|
-| `VITE_GOOGLE_MAPS_KEY` | Google Maps JavaScript API key |
-| `VITE_JCDECAUX_API_KEY` | JCDecaux Open Data API key |
-| `VITE_JCDECAUX_CONTRACT` | JCDecaux contract name (default: `Lyon`) |
+1. Generates a trusted HTTPS certificate via mkcert (skipped if certs already exist)
+2. Builds the Docker image and starts the dev container
+3. Installs dependencies inside the container
+4. Runs an interactive setup wizard that asks for your map provider, UI framework, city contract, and API keys — then writes `.env` and installs any extra dependencies
 
 App available at <https://localhost:5173>.
 
 ## Available tasks
 
 ```
-task install       Bootstrap the project (first-time setup)
+task install       Bootstrap the project (first-time setup, runs interactive wizard)
 task install:prod  Bootstrap for production (copy .env + start nginx container)
 
+task setup        Run the interactive setup wizard (writes .env, installs extra deps)
 task env          Copy .env.example → .env (skipped if already exists)
 task cert         Generate HTTPS certificate for localhost (skipped if already exists)
 task cert:clean   Remove generated certificate files
