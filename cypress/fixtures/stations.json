@@ -1,0 +1,35 @@
+[
+  {
+    "number": 1,
+    "name": "Station Bellecour",
+    "address": "1 Place Bellecour, Lyon",
+    "position": { "lat": 45.7578, "lng": 4.8320 },
+    "available_bikes": 5,
+    "available_bike_stands": 10,
+    "bike_stands": 15,
+    "bonus": "Oui",
+    "status": "OPEN"
+  },
+  {
+    "number": 2,
+    "name": "Station Part-Dieu",
+    "address": "17 Rue Garibaldi, Lyon",
+    "position": { "lat": 45.7605, "lng": 4.8596 },
+    "available_bikes": 0,
+    "available_bike_stands": 8,
+    "bike_stands": 8,
+    "bonus": "Non",
+    "status": "OPEN"
+  },
+  {
+    "number": 3,
+    "name": "Station Perrache",
+    "address": "3 Cours Charlemagne, Lyon",
+    "position": { "lat": 45.7493, "lng": 4.8266 },
+    "available_bikes": 2,
+    "available_bike_stands": 3,
+    "bike_stands": 5,
+    "bonus": "Non",
+    "status": "CLOSED"
+  }
+]
