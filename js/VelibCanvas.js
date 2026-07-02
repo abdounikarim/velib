@@ -49,8 +49,8 @@ var VelibCanvas = {
         VelibCanvas.ctx = VelibCanvas.canvas.getContext('2d');
         VelibCanvas.height = VelibCanvas.canvas.height;
         VelibCanvas.width = VelibCanvas.canvas.width;
-        VelibCanvas.currX, VelibCanvas.currY, VelibCanvas.prevX, VelibCanvas.prevY= 0;
-        VelibCanvas.flag, VelibCanvas.dot_flag = false;
+        VelibCanvas.currX = VelibCanvas.currY = VelibCanvas.prevX = VelibCanvas.prevY = 0;
+        VelibCanvas.flag = VelibCanvas.dot_flag = false;
     },
     launch: function(action,e){
         if (this.responsive() <= 768){

@@ -41,8 +41,8 @@ var VelibMarker = {
             return this.image;
         }
     },
-    initMarkers: function () {
-        VelibOpenData.locations.forEach(function (s) {
+    initMarkers: function (locations) {
+        locations.forEach(function (s) {
             VelibMarker.icon(s);
             this.marker = new google.maps.Marker({
                 address: s.address,
@@ -69,11 +69,17 @@ var VelibMarker = {
     },
     stop: function () {
         var sessionStation = sessionStorage.getItem('station');
+        var iconByColor = {
+            green: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+            blue:  'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+            red:   'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        };
         for(var i = 0; i < VelibMarker.locations.length; i++)
         {
             if(sessionStation == VelibMarker.locations[i].name){
                 VelibMarker.locations[i].setAnimation(null);
-                VelibMarker.locations[i].icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+                var bgcolor = VelibMarker.locations[i].bgcolor;
+                VelibMarker.locations[i].icon = iconByColor[bgcolor] || iconByColor.green;
             }
         }
     }

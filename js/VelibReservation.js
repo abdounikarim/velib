@@ -1,4 +1,5 @@
 var VelibReservation = {
+    _destroyTimer: null,
     checkSession: function () {
         if(sessionStorage.getItem('date')){
             this.countDown();
@@ -39,9 +40,9 @@ var VelibReservation = {
     },
     destroyBlock: function () {
         $("#reservation").fadeOut(2000);
-        setTimeout(function() {
+        VelibReservation._destroyTimer = setTimeout(function() {
             VelibReservation.removeBlock();
-        }, 800);
+        }, 2000);
     },
     move: function(){
         var elem = $('#reservation');
@@ -58,7 +59,11 @@ var VelibReservation = {
             sessionStorage.setItem('bikes', left);
         }
     },
-    removeBlock:function () {
+    removeBlock: function () {
+        if (VelibReservation._destroyTimer) {
+            clearTimeout(VelibReservation._destroyTimer);
+            VelibReservation._destroyTimer = null;
+        }
         $('#reservation').remove();
     },
     sessionSave: function (date, marker) {
