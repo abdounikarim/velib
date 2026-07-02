@@ -6,14 +6,21 @@ Vélib bike-sharing reservation app (Lyon) — vanilla JS + Vite + Cypress + Doc
 
 - [Docker](https://www.docker.com)
 - [mkcert](https://github.com/FiloSottile/mkcert) — `brew install mkcert`
+- [Task](https://taskfile.dev) — `brew install go-task`
 
-## Environment variables
-
-Copy the example file and fill in your API keys:
+## First-time setup
 
 ```bash
-cp .env.example .env
+task install
 ```
+
+This single command:
+1. Copies `.env.example` → `.env` (skipped if `.env` already exists)
+2. Generates a trusted HTTPS certificate via mkcert (skipped if certs already exist)
+3. Builds the Docker image and starts the dev container
+4. Installs dependencies inside the container
+
+Then fill in your API keys in `.env`:
 
 | Variable | Description |
 |----------|-------------|
@@ -21,58 +28,43 @@ cp .env.example .env
 | `VITE_JCDECAUX_API_KEY` | JCDecaux Open Data API key |
 | `VITE_JCDECAUX_CONTRACT` | JCDecaux contract name (default: `Lyon`) |
 
-## HTTPS certificate (required for the dev server)
+App available at <https://localhost:5173>.
 
-Vite runs over HTTPS locally. Generate a trusted self-signed certificate with mkcert:
+## Available tasks
 
-```bash
-mkcert -install
-mkdir -p certs
-mkcert -cert-file certs/tls.pem -key-file certs/tls.key "localhost"
+```
+task install       Bootstrap the project (first-time setup)
+task install:prod  Bootstrap for production (copy .env + start nginx container)
+
+task env          Copy .env.example → .env (skipped if already exists)
+task cert         Generate HTTPS certificate for localhost (skipped if already exists)
+task cert:clean   Remove generated certificate files
+
+task dev          Build image and start the dev container in the background
+task deps         Install dependencies inside the running app container
+task down         Stop and remove all running containers
+
+task test         Run Cypress E2E tests headlessly
+
+task build        Production build (output → dist/)
+task prod         Build and start the production nginx container
+
+task clean        Remove build artifacts and Cypress run outputs
 ```
 
-`mkcert -install` only needs to be run once per machine.
+## Adding or removing packages
 
-## Development
-
-Build the image and start the container (keeps running in the background):
-
-```bash
-docker compose up -d --build
-```
-
-Install dependencies inside the container:
-
-```bash
-docker compose exec app pnpm install
-```
-
-App available at <https://localhost:5173>. The source is mounted for hot-reload — no rebuild needed on file changes.
-
-When adding or removing packages, run `pnpm` inside the container:
+Run `pnpm` inside the container:
 
 ```bash
 docker compose exec app pnpm add <package>
 docker compose exec app pnpm remove <package>
 ```
 
-## Tests
-
-```bash
-# Run Cypress (spins up, runs all specs, then exits)
-docker compose --profile cypress run --rm cypress
-```
-
-## Build
-
-```bash
-docker compose exec app pnpm build
-```
-
 ## Production
 
 ```bash
-docker compose -f compose.yaml -f compose.prod.yaml up -d --build
+task prod
 ```
 
 App served by nginx on <http://localhost:8080> with gzip compression and immutable asset caching.

@@ -1,0 +1,105 @@
+version: "3"
+
+vars:
+  DC_EXEC: docker compose exec app
+
+tasks:
+  # ---------------------------------------------------------------------------
+  # Bootstrap
+  # ---------------------------------------------------------------------------
+
+  install:
+    desc: "Bootstrap the project: copy .env, generate certs, build containers, install deps"
+    cmds:
+      - task: env
+      - task: cert
+      - task: dev
+      - task: deps
+
+  install:prod:
+    desc: "Bootstrap for production: copy .env, build and start the nginx container"
+    cmds:
+      - task: env
+      - task: prod
+
+  # ---------------------------------------------------------------------------
+  # Setup
+  # ---------------------------------------------------------------------------
+
+  env:
+    desc: "Copy .env.example to .env (skipped if .env already exists)"
+    status:
+      - test -f .env
+    cmds:
+      - cp .env.example .env
+      - echo "→ .env created — fill in your API keys before starting the app."
+
+  cert:
+    desc: "Install root CA and generate certs/tls.pem + certs/tls.key for localhost"
+    status:
+      - test -f certs/tls.pem
+      - test -f certs/tls.key
+    cmds:
+      - mkcert -install
+      - mkdir -p certs
+      - mkcert -cert-file certs/tls.pem -key-file certs/tls.key localhost
+
+  cert:clean:
+    desc: "Remove generated certificate files"
+    cmds:
+      - rm -f certs/tls.pem certs/tls.key
+
+  # ---------------------------------------------------------------------------
+  # Development
+  # ---------------------------------------------------------------------------
+
+  dev:
+    desc: "Build image and start the dev container in the background"
+    cmds:
+      - docker compose up -d --build
+
+  deps:
+    desc: "Install dependencies inside the running app container"
+    cmds:
+      - "{{.DC_EXEC}} pnpm install"
+
+  down:
+    desc: "Stop and remove all running containers"
+    cmds:
+      - docker compose down
+
+  # ---------------------------------------------------------------------------
+  # Tests
+  # ---------------------------------------------------------------------------
+
+  test:
+    desc: "Run E2E tests headlessly (requires dev container to be running)"
+    cmds:
+      - docker compose --profile cypress run --rm cypress
+
+  # ---------------------------------------------------------------------------
+  # Build
+  # ---------------------------------------------------------------------------
+
+  build:
+    desc: "Production build (output → dist/)"
+    cmds:
+      - "{{.DC_EXEC}} pnpm build"
+
+  # ---------------------------------------------------------------------------
+  # Production
+  # ---------------------------------------------------------------------------
+
+  prod:
+    desc: "Build and start the production nginx container"
+    cmds:
+      - docker compose -f compose.yaml -f compose.prod.yaml up -d --build
+
+  # ---------------------------------------------------------------------------
+  # Maintenance
+  # ---------------------------------------------------------------------------
+
+  clean:
+    desc: "Remove build artifacts and Cypress run outputs"
+    cmds:
+      - rm -rf dist cypress/videos cypress/screenshots
