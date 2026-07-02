@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  ci:
+    name: Lint · Build · Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Set up environment
+        run: cp .env.example .env
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Check formatting
+        run: pnpm format:check
+
+      - name: Build
+        run: pnpm build
+
+      - name: Start dev server
+        run: pnpm dev &
+
+      - name: Wait for dev server
+        run: timeout 60 bash -c 'until curl -sf http://localhost:5173 > /dev/null 2>&1; do sleep 1; done'
+
+      - name: Run E2E tests
+        run: pnpm test:e2e
+        env:
+          CYPRESS_BASE_URL: http://localhost:5173
