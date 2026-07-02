@@ -39,6 +39,11 @@ task down         Stop and remove all running containers
 
 task test         Run Cypress E2E tests headlessly
 
+task lint         Run ESLint
+task lint:fix     Run ESLint and auto-fix issues
+task format       Format all files with Prettier
+task format:check Check formatting without writing changes
+
 task build        Production build (output → dist/)
 task prod         Build and start the production nginx container
 

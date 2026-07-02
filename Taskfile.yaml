@@ -101,6 +101,30 @@ tasks:
       - docker compose -f compose.yaml -f compose.prod.yaml up -d --build
 
   # ---------------------------------------------------------------------------
+  # Code quality
+  # ---------------------------------------------------------------------------
+
+  lint:
+    desc: "Run ESLint"
+    cmds:
+      - "{{.DC_EXEC}} pnpm lint"
+
+  lint:fix:
+    desc: "Run ESLint and auto-fix issues"
+    cmds:
+      - "{{.DC_EXEC}} pnpm lint:fix"
+
+  format:
+    desc: "Format all files with Prettier"
+    cmds:
+      - "{{.DC_EXEC}} pnpm format"
+
+  format:check:
+    desc: "Check formatting without writing changes"
+    cmds:
+      - "{{.DC_EXEC}} pnpm format:check"
+
+  # ---------------------------------------------------------------------------
   # Maintenance
   # ---------------------------------------------------------------------------
 
