@@ -67,4 +67,4 @@ docker compose exec app pnpm remove <package>
 task prod
 ```
 
-App served by nginx on <http://localhost:8080> with gzip compression and immutable asset caching.
+App served by nginx on <https://localhost:8443> (HTTP on port 8080 redirects to HTTPS). Uses the same mkcert certificate as the dev server.
