@@ -4,7 +4,7 @@ import prettierConfig from 'eslint-config-prettier'
 import tseslint from 'typescript-eslint'
 
 export default [
-  { ignores: ['dist/**', 'src/locales/**', 'js/**', 'src/**/*.d.ts'] },
+  { ignores: ['dist/**', 'src/locales/**', 'src/**/*.d.ts'] },
 
   js.configs.recommended,
 
