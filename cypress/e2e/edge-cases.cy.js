@@ -72,7 +72,7 @@ describe('Changement de station', () => {
     cy.get('#infos').should('not.contain', 'Station Bellecour')
   })
 
-  it('n\'affiche qu\'un seul bloc #infos à la fois', () => {
+  it("n'affiche qu'un seul bloc #infos à la fois", () => {
     cy.window().then((win) => win.VelibInfo.show(stationVerte))
     cy.window().then((win) => win.VelibInfo.show(stationBleue))
     cy.get('#infos').should('have.length', 1)
@@ -144,7 +144,7 @@ describe('Countdown et sessionStorage', () => {
 
   it('affiche "Réservation expirée" quand la date est dépassée de plus de 20 min', () => {
     cy.window().then((win) => {
-      const dateExpired = new Date().getTime() - (1000 * 60 * 21)
+      const dateExpired = new Date().getTime() - 1000 * 60 * 21
       win.sessionStorage.setItem('station', 'Station Bellecour')
       win.sessionStorage.setItem('date', String(dateExpired))
       win.VelibReservation.checkSession()
@@ -177,18 +177,22 @@ describe('Countdown et sessionStorage', () => {
 })
 
 // ─────────────────────────────────────────────────────────────────────────────
-describe('Gestion d\'erreur réseau', () => {
+describe("Gestion d'erreur réseau", () => {
   beforeEach(() => {
     cy.intercept(...INTERCEPTS.maps)
     cy.intercept(...INTERCEPTS.cdn)
     cy.visit('/')
   })
 
-  it('ne plante pas si l\'API JCDecaux répond avec une erreur 500', () => {
+  it("ne plante pas si l'API JCDecaux répond avec une erreur 500", () => {
     cy.intercept('GET', 'https://api.jcdecaux.com/**', { statusCode: 500, body: '' })
     cy.window().then((win) => {
       win.VelibMap.map = { setCenter: () => {}, setZoom: () => {} }
-      win.markerClusterer = { MarkerClusterer: function () { return {} } }
+      win.markerClusterer = {
+        MarkerClusterer: function () {
+          return {}
+        },
+      }
       expect(() => win.VelibOpenData.getData()).to.not.throw()
     })
     cy.get('#map').should('exist')
@@ -225,7 +229,7 @@ describe('Canvas de signature', () => {
     })
   })
 
-  it('le canvas est vide à l\'ouverture', () => {
+  it("le canvas est vide à l'ouverture", () => {
     cy.get('#canvas').then(($canvas) => {
       const canvas = $canvas[0]
       const ctx = canvas.getContext('2d')

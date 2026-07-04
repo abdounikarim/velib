@@ -40,7 +40,7 @@ describe('Affichage des informations de station', () => {
       cy.window().then((win) => win.VelibInfo.show(stationOuverte))
     })
 
-    it('affiche le bloc d\'informations', () => {
+    it("affiche le bloc d'informations", () => {
       cy.get('#infos').should('be.visible')
     })
 
@@ -48,7 +48,7 @@ describe('Affichage des informations de station', () => {
       cy.get('#infos').should('contain', 'Station Bellecour')
     })
 
-    it('affiche l\'adresse', () => {
+    it("affiche l'adresse", () => {
       cy.get('#infos').should('contain', '1 Place Bellecour, Lyon')
     })
 
@@ -74,7 +74,7 @@ describe('Affichage des informations de station', () => {
       cy.get('#btnnoreservation').should('exist').and('have.class', 'disabled')
     })
 
-    it('n\'affiche pas le bouton de réservation', () => {
+    it("n'affiche pas le bouton de réservation", () => {
       cy.get('#btnreservation').should('not.exist')
     })
   })
@@ -93,12 +93,18 @@ describe('Affichage des informations de station', () => {
     })
   })
 
-  context('Chargement depuis l\'API JCDecaux', () => {
-    it('charge et affiche les stations depuis l\'API mockée', () => {
-      cy.intercept('GET', 'https://api.jcdecaux.com/**', { fixture: 'stations.json' }).as('getStations')
+  context("Chargement depuis l'API JCDecaux", () => {
+    it("charge et affiche les stations depuis l'API mockée", () => {
+      cy.intercept('GET', 'https://api.jcdecaux.com/**', { fixture: 'stations.json' }).as(
+        'getStations'
+      )
       cy.window().then((win) => {
         win.VelibMap.map = { setCenter: () => {}, setZoom: () => {} }
-        win.markerClusterer = { MarkerClusterer: function () { return {} } }
+        win.markerClusterer = {
+          MarkerClusterer: function () {
+            return {}
+          },
+        }
         win.VelibOpenData.getData()
       })
       cy.wait('@getStations')

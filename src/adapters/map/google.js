@@ -5,9 +5,9 @@
  */
 
 const ICONS = {
-  green:    'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-  blue:     'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-  red:      'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+  green: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+  blue: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+  red: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
   reserved: 'http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png',
 }
 
@@ -29,15 +29,15 @@ export const googleMapsAdapter = {
       position: { lat: station.position.lat, lng: station.position.lng },
       map,
       icon: ICONS[color],
-      name:                  station.name,
-      address:               station.address,
-      available_bikes:       station.available_bikes,
+      name: station.name,
+      address: station.address,
+      available_bikes: station.available_bikes,
       available_bike_stands: station.available_bike_stands,
-      bike_stands:           station.bike_stands,
-      bonus:                 station.bonus,
-      status:                station.status,
-      number:                station.number,
-      bgcolor:               color,
+      bike_stands: station.bike_stands,
+      bonus: station.bonus,
+      status: station.status,
+      number: station.number,
+      bgcolor: color,
     })
     return marker
   },

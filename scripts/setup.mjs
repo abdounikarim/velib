@@ -13,21 +13,23 @@ function run(cmd) {
 }
 
 function writeEnv(values) {
-  const lines = Object.entries(values).map(([k, v]) => `${k}=${v}`).join('\n')
+  const lines = Object.entries(values)
+    .map(([k, v]) => `${k}=${v}`)
+    .join('\n')
   writeFileSync(join(ROOT, '.env'), lines + '\n')
 }
 
 const MAP_DEPS = {
-  google:  [],
-  mapbox:  ['mapbox-gl'],
+  google: [],
+  mapbox: ['mapbox-gl'],
   leaflet: ['leaflet'],
 }
 
 const UI_DEPS = {
   materialize: [],
-  bootstrap:   ['bootstrap'],
-  bulma:       ['bulma'],
-  tailwind:    ['tailwindcss', '@tailwindcss/vite'],
+  bootstrap: ['bootstrap'],
+  bulma: ['bulma'],
+  tailwind: ['tailwindcss', '@tailwindcss/vite'],
 }
 
 async function main() {
@@ -37,25 +39,31 @@ async function main() {
   const map = await p.select({
     message: 'Map provider',
     options: [
-      { value: 'google',  label: 'Google Maps',  hint: 'requires an API key' },
-      { value: 'mapbox',  label: 'Mapbox GL',    hint: 'requires an access token' },
-      { value: 'leaflet', label: 'Leaflet',       hint: 'open source — no key needed' },
+      { value: 'google', label: 'Google Maps', hint: 'requires an API key' },
+      { value: 'mapbox', label: 'Mapbox GL', hint: 'requires an access token' },
+      { value: 'leaflet', label: 'Leaflet', hint: 'open source — no key needed' },
     ],
     initialValue: 'google',
   })
-  if (p.isCancel(map)) { p.cancel('Aborted.'); process.exit(0) }
+  if (p.isCancel(map)) {
+    p.cancel('Aborted.')
+    process.exit(0)
+  }
 
   const ui = await p.select({
     message: 'UI framework',
     options: [
       { value: 'materialize', label: 'Materialize CSS v1', hint: 'current' },
-      { value: 'bootstrap',   label: 'Bootstrap 5' },
-      { value: 'bulma',       label: 'Bulma' },
-      { value: 'tailwind',    label: 'Tailwind CSS v4' },
+      { value: 'bootstrap', label: 'Bootstrap 5' },
+      { value: 'bulma', label: 'Bulma' },
+      { value: 'tailwind', label: 'Tailwind CSS v4' },
     ],
     initialValue: 'materialize',
   })
-  if (p.isCancel(ui)) { p.cancel('Aborted.'); process.exit(0) }
+  if (p.isCancel(ui)) {
+    p.cancel('Aborted.')
+    process.exit(0)
+  }
 
   const city = await p.text({
     message: 'JCDecaux city contract',
@@ -63,14 +71,20 @@ async function main() {
     defaultValue: 'Lyon',
     validate: (v) => (!v.trim() ? 'Please enter a city name.' : undefined),
   })
-  if (p.isCancel(city)) { p.cancel('Aborted.'); process.exit(0) }
+  if (p.isCancel(city)) {
+    p.cancel('Aborted.')
+    process.exit(0)
+  }
 
   const jcdecauxKey = await p.text({
     message: 'JCDecaux API key',
     placeholder: '9d5ce692...',
     validate: (v) => (!v.trim() ? 'A JCDecaux API key is required.' : undefined),
   })
-  if (p.isCancel(jcdecauxKey)) { p.cancel('Aborted.'); process.exit(0) }
+  if (p.isCancel(jcdecauxKey)) {
+    p.cancel('Aborted.')
+    process.exit(0)
+  }
 
   let mapKey = ''
   if (map === 'google') {
@@ -79,7 +93,10 @@ async function main() {
       placeholder: 'AIzaSy...',
       validate: (v) => (!v.trim() ? 'An API key is required for Google Maps.' : undefined),
     })
-    if (p.isCancel(mapKey)) { p.cancel('Aborted.'); process.exit(0) }
+    if (p.isCancel(mapKey)) {
+      p.cancel('Aborted.')
+      process.exit(0)
+    }
   }
 
   if (map === 'mapbox') {
@@ -88,16 +105,19 @@ async function main() {
       placeholder: 'pk.eyJ1...',
       validate: (v) => (!v.trim() ? 'An access token is required for Mapbox.' : undefined),
     })
-    if (p.isCancel(mapKey)) { p.cancel('Aborted.'); process.exit(0) }
+    if (p.isCancel(mapKey)) {
+      p.cancel('Aborted.')
+      process.exit(0)
+    }
   }
 
-  p.note(
-    [`Map:  ${map}`, `UI:   ${ui}`, `City: ${city}`].join('\n'),
-    'Your configuration'
-  )
+  p.note([`Map:  ${map}`, `UI:   ${ui}`, `City: ${city}`].join('\n'), 'Your configuration')
 
   const confirmed = await p.confirm({ message: 'Proceed with this configuration?' })
-  if (p.isCancel(confirmed) || !confirmed) { p.cancel('Aborted.'); process.exit(0) }
+  if (p.isCancel(confirmed) || !confirmed) {
+    p.cancel('Aborted.')
+    process.exit(0)
+  }
 
   const s = p.spinner()
 
@@ -108,7 +128,7 @@ async function main() {
     VITE_JCDECAUX_CONTRACT: city,
     VITE_JCDECAUX_API_KEY: jcdecauxKey,
     ...(map === 'google' ? { VITE_GOOGLE_MAPS_KEY: mapKey } : {}),
-    ...(map === 'mapbox' ? { VITE_MAPBOX_TOKEN: mapKey }    : {}),
+    ...(map === 'mapbox' ? { VITE_MAPBOX_TOKEN: mapKey } : {}),
   })
   s.stop('.env written')
 

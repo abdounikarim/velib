@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 
 vars:
   DC_EXEC: docker compose exec app
@@ -9,7 +9,7 @@ tasks:
   # ---------------------------------------------------------------------------
 
   install:
-    desc: "Bootstrap the project: generate certs, build containers, install deps, run setup wizard"
+    desc: 'Bootstrap the project: generate certs, build containers, install deps, run setup wizard'
     cmds:
       - task: cert
       - task: dev
@@ -17,7 +17,7 @@ tasks:
       - task: setup
 
   install:prod:
-    desc: "Bootstrap for production: copy .env, build and start the nginx container"
+    desc: 'Bootstrap for production: copy .env, build and start the nginx container'
     cmds:
       - task: env
       - task: prod
@@ -27,7 +27,7 @@ tasks:
   # ---------------------------------------------------------------------------
 
   env:
-    desc: "Copy .env.example to .env (skipped if .env already exists)"
+    desc: 'Copy .env.example to .env (skipped if .env already exists)'
     status:
       - test -f .env
     cmds:
@@ -35,7 +35,7 @@ tasks:
       - echo "→ .env created — fill in your API keys before starting the app."
 
   cert:
-    desc: "Install root CA and generate certs/tls.pem + certs/tls.key for localhost"
+    desc: 'Install root CA and generate certs/tls.pem + certs/tls.key for localhost'
     status:
       - test -f certs/tls.pem
       - test -f certs/tls.key
@@ -45,31 +45,31 @@ tasks:
       - mkcert -cert-file certs/tls.pem -key-file certs/tls.key localhost
 
   cert:clean:
-    desc: "Remove generated certificate files"
+    desc: 'Remove generated certificate files'
     cmds:
       - rm -f certs/tls.pem certs/tls.key
 
   setup:
-    desc: "Run the interactive setup wizard (writes .env, installs extra deps)"
+    desc: 'Run the interactive setup wizard (writes .env, installs extra deps)'
     cmds:
-      - "{{.DC_EXEC}} node scripts/setup.mjs"
+      - '{{.DC_EXEC}} node scripts/setup.mjs'
 
   # ---------------------------------------------------------------------------
   # Development
   # ---------------------------------------------------------------------------
 
   dev:
-    desc: "Build image and start the dev container in the background"
+    desc: 'Build image and start the dev container in the background'
     cmds:
       - docker compose up -d --build
 
   deps:
-    desc: "Install dependencies inside the running app container"
+    desc: 'Install dependencies inside the running app container'
     cmds:
-      - "{{.DC_EXEC}} pnpm install"
+      - '{{.DC_EXEC}} pnpm install'
 
   down:
-    desc: "Stop and remove all running containers"
+    desc: 'Stop and remove all running containers'
     cmds:
       - docker compose down
 
@@ -78,7 +78,7 @@ tasks:
   # ---------------------------------------------------------------------------
 
   test:
-    desc: "Run E2E tests headlessly (requires dev container to be running)"
+    desc: 'Run E2E tests headlessly (requires dev container to be running)'
     cmds:
       - docker compose --profile cypress run --rm cypress
 
@@ -87,16 +87,16 @@ tasks:
   # ---------------------------------------------------------------------------
 
   build:
-    desc: "Production build (output → dist/)"
+    desc: 'Production build (output → dist/)'
     cmds:
-      - "{{.DC_EXEC}} pnpm build"
+      - '{{.DC_EXEC}} pnpm build'
 
   # ---------------------------------------------------------------------------
   # Production
   # ---------------------------------------------------------------------------
 
   prod:
-    desc: "Build and start the production nginx container"
+    desc: 'Build and start the production nginx container'
     cmds:
       - docker compose -f compose.yaml -f compose.prod.yaml up -d --build
 
@@ -105,35 +105,35 @@ tasks:
   # ---------------------------------------------------------------------------
 
   typecheck:
-    desc: "Run TypeScript type checking"
+    desc: 'Run TypeScript type checking'
     cmds:
-      - "{{.DC_EXEC}} pnpm typecheck"
+      - '{{.DC_EXEC}} pnpm typecheck'
 
   lint:
-    desc: "Run ESLint"
+    desc: 'Run ESLint'
     cmds:
-      - "{{.DC_EXEC}} pnpm lint"
+      - '{{.DC_EXEC}} pnpm lint'
 
   lint:fix:
-    desc: "Run ESLint and auto-fix issues"
+    desc: 'Run ESLint and auto-fix issues'
     cmds:
-      - "{{.DC_EXEC}} pnpm lint:fix"
+      - '{{.DC_EXEC}} pnpm lint:fix'
 
   format:
-    desc: "Format all files with Prettier"
+    desc: 'Format all files with Prettier'
     cmds:
-      - "{{.DC_EXEC}} pnpm format"
+      - '{{.DC_EXEC}} pnpm format'
 
   format:check:
-    desc: "Check formatting without writing changes"
+    desc: 'Check formatting without writing changes'
     cmds:
-      - "{{.DC_EXEC}} pnpm format:check"
+      - '{{.DC_EXEC}} pnpm format:check'
 
   # ---------------------------------------------------------------------------
   # Maintenance
   # ---------------------------------------------------------------------------
 
   clean:
-    desc: "Remove build artifacts and Cypress run outputs"
+    desc: 'Remove build artifacts and Cypress run outputs'
     cmds:
       - rm -rf dist cypress/videos cypress/screenshots

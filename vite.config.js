@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
 
   if (isDev && fs.existsSync('certs/tls.key') && fs.existsSync('certs/tls.pem')) {
     serverConfig.https = {
-      key:  fs.readFileSync('certs/tls.key'),
+      key: fs.readFileSync('certs/tls.key'),
       cert: fs.readFileSync('certs/tls.pem'),
     }
   }

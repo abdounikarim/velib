@@ -14,7 +14,7 @@
 export const bulmaAdapter = {
   initSidenav() {
     const burger = document.querySelector('.navbar-burger')
-    const menu   = document.querySelector(`#${burger?.dataset.target}`)
+    const menu = document.querySelector(`#${burger?.dataset.target}`)
     if (burger && menu) {
       burger.addEventListener('click', () => {
         burger.classList.toggle('is-active')

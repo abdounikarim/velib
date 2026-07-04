@@ -5,8 +5,8 @@ services:
     build:
       target: prod
     ports:
-      - "${HTTP_PORT:-8080}:80"
-      - "${HTTPS_PORT:-8443}:443"
+      - '${HTTP_PORT:-8080}:80'
+      - '${HTTPS_PORT:-8443}:443'
     volumes:
       - ./certs:/etc/nginx/certs:ro
     environment:

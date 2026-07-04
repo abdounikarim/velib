@@ -36,10 +36,9 @@ export const leafletAdapter = {
 
   createMarker(station, map) {
     const color = colorForStation(station)
-    const marker = L.marker(
-      [station.position.lat, station.position.lng],
-      { icon: makeIcon(color) }
-    ).addTo(map)
+    const marker = L.marker([station.position.lat, station.position.lng], {
+      icon: makeIcon(color),
+    }).addTo(map)
     marker._stationData = { ...station, bgcolor: color }
     return marker
   },

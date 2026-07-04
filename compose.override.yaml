@@ -5,13 +5,13 @@ services:
     build:
       target: dev
     ports:
-      - "${DEV_PORT:-5173}:5173"
+      - '${DEV_PORT:-5173}:5173'
     volumes:
       - .:/app
-      - /app/node_modules   # keep node_modules inside the container
+      - /app/node_modules # keep node_modules inside the container
     environment:
       - NODE_ENV=development
-    restart: "no"
+    restart: 'no'
     healthcheck:
       test: wget -qO- --no-check-certificate https://localhost:5173 || exit 1
       interval: 5s

@@ -15,6 +15,7 @@ task install
 ```
 
 This single command:
+
 1. Generates a trusted HTTPS certificate via mkcert (skipped if certs already exist)
 2. Builds the Docker image and starts the dev container
 3. Installs dependencies inside the container

@@ -3,7 +3,7 @@
     "number": 1,
     "name": "Station Bellecour",
     "address": "1 Place Bellecour, Lyon",
-    "position": { "lat": 45.7578, "lng": 4.8320 },
+    "position": { "lat": 45.7578, "lng": 4.832 },
     "available_bikes": 5,
     "available_bike_stands": 10,
     "bike_stands": 15,
