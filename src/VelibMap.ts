@@ -10,6 +10,7 @@ export const VelibMap = {
     VelibMap.map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
       zoom: VelibMap.zoom,
       center: { lat: VelibMap.lat, lng: VelibMap.lng },
+      mapId: import.meta.env.VITE_GOOGLE_MAP_ID ?? 'DEMO_MAP_ID',
     })
     VelibOpenData.getData()
     return VelibMap.map

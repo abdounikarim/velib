@@ -15,6 +15,6 @@ declare namespace M {
 
 declare namespace markerClusterer {
   class MarkerClusterer {
-    constructor(opts: { map: google.maps.Map; markers: google.maps.Marker[] })
+    constructor(opts: { map: google.maps.Map; markers: google.maps.marker.AdvancedMarkerElement[] })
   }
 }

@@ -10,9 +10,8 @@ describe('Flow de réservation', () => {
     bonus: 'Oui',
     status: 'OPEN',
     bgcolor: 'green',
-    setAnimation: () => {},
-    setIcon: () => {},
-    icon: null,
+    content: null,
+    element: { classList: { add: () => {}, remove: () => {} } },
   }
 
   beforeEach(() => {

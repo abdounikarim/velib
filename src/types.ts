@@ -12,7 +12,7 @@ export interface Station {
 
 export type MarkerColor = 'green' | 'blue' | 'red'
 
-export type StationMarker = google.maps.Marker & {
+export type StationMarker = google.maps.marker.AdvancedMarkerElement & {
   address: string
   available_bike_stands: number
   available_bikes: number

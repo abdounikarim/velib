@@ -15,9 +15,8 @@ const stationVerte = {
   bonus: 'Oui',
   status: 'OPEN',
   bgcolor: 'green',
-  setAnimation: () => {},
-  setIcon: () => {},
-  icon: null,
+  content: null,
+  element: { classList: { add: () => {}, remove: () => {} } },
 }
 
 const stationBleue = {
@@ -31,9 +30,8 @@ const stationBleue = {
   bonus: 'Non',
   status: 'OPEN',
   bgcolor: 'blue',
-  setAnimation: () => {},
-  setIcon: () => {},
-  icon: null,
+  content: null,
+  element: { classList: { add: () => {}, remove: () => {} } },
 }
 
 const stationRouge = {
@@ -47,9 +45,8 @@ const stationRouge = {
   bonus: 'Non',
   status: 'CLOSED',
   bgcolor: 'red',
-  setAnimation: () => {},
-  setIcon: () => {},
-  icon: null,
+  content: null,
+  element: { classList: { add: () => {}, remove: () => {} } },
 }
 
 const setup = () => {
