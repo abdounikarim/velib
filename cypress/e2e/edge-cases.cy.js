@@ -16,6 +16,7 @@ const stationVerte = {
   status: 'OPEN',
   bgcolor: 'green',
   setAnimation: () => {},
+  setIcon: () => {},
   icon: null,
 }
 
@@ -31,6 +32,7 @@ const stationBleue = {
   status: 'OPEN',
   bgcolor: 'blue',
   setAnimation: () => {},
+  setIcon: () => {},
   icon: null,
 }
 
@@ -46,6 +48,7 @@ const stationRouge = {
   status: 'CLOSED',
   bgcolor: 'red',
   setAnimation: () => {},
+  setIcon: () => {},
   icon: null,
 }
 

@@ -30,6 +30,9 @@ jobs:
       - name: Set up environment
         run: cp .env.example .env
 
+      - name: Type check
+        run: pnpm typecheck
+
       - name: Lint
         run: pnpm lint
 

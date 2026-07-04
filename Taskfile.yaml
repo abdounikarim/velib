@@ -104,6 +104,11 @@ tasks:
   # Code quality
   # ---------------------------------------------------------------------------
 
+  typecheck:
+    desc: "Run TypeScript type checking"
+    cmds:
+      - "{{.DC_EXEC}} pnpm typecheck"
+
   lint:
     desc: "Run ESLint"
     cmds:

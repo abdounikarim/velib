@@ -11,6 +11,7 @@ describe('Flow de réservation', () => {
     status: 'OPEN',
     bgcolor: 'green',
     setAnimation: () => {},
+    setIcon: () => {},
     icon: null,
   }
 

@@ -164,8 +164,8 @@
              1. jQuery (required by Materialize + app code)
              2. MarkerClusterer UMD (exposes window.markerClusterer)
              3. Materialize JS v1 (requires jQuery)
-             4. App modules (must be defined before Google Maps callback fires)
-             5. Google Maps (async/defer — calls VelibMap.initMap when ready) -->
+             4. App entry point (module, deferred — sets window.initMap)
+             5. Google Maps (defer — calls window.initMap after entry point runs) -->
         <script
             src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -173,18 +173,10 @@
         ></script>
         <script src="https://cdn.jsdelivr.net/npm/@googlemaps/markerclusterer@2/dist/index.umd.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="js/VelibMap.js"></script>
-        <script src="js/VelibOpenData.js"></script>
-        <script src="js/VelibMarker.js"></script>
-        <script src="js/VelibMarkerCluster.js"></script>
-        <script src="js/VelibInfo.js"></script>
-        <script src="js/VelibReservation.js"></script>
-        <script src="js/VelibCanvas.js"></script>
-        <script src="js/index.js"></script>
+        <script type="module" src="/src/main.ts"></script>
         <script
-            async
             defer
-            src="https://maps.googleapis.com/maps/api/js?key=%VITE_GOOGLE_MAPS_KEY%&callback=VelibMap.initMap"
+            src="https://maps.googleapis.com/maps/api/js?key=%VITE_GOOGLE_MAPS_KEY%&callback=initMap"
         ></script>
     </body>
 </html>
