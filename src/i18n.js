@@ -20,7 +20,7 @@ function detectLocale() {
 export async function setLocale(locale) {
   const lang = SUPPORTED_LOCALES.includes(locale) ? locale : 'en'
   try {
-    const module = await import(`./locales/${lang}.json`, { assert: { type: 'json' } })
+    const module = await import(`./locales/${lang}.json`)
     translations = module.default
     currentLocale = lang
     try { localStorage.setItem('velib_locale', lang) } catch { /* ignore */ }

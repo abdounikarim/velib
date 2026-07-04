@@ -4,36 +4,9 @@ import prettierConfig from 'eslint-config-prettier'
 import tseslint from 'typescript-eslint'
 
 export default [
-  { ignores: ['dist/**', 'src/locales/**'] },
+  { ignores: ['dist/**', 'src/locales/**', 'js/**', 'src/**/*.d.ts'] },
 
   js.configs.recommended,
-
-  // Legacy browser scripts — loaded as classic <script> tags, use var and app-level globals
-  {
-    files: ['js/**/*.js'],
-    languageOptions: {
-      sourceType: 'script',
-      ecmaVersion: 2015,
-      globals: {
-        ...globals.browser,
-        google: 'readonly',
-        markerClusterer: 'readonly',
-        M: 'readonly',
-        $: 'readonly',
-        VelibMap: 'writable',
-        VelibMarker: 'writable',
-        VelibMarkerCluster: 'writable',
-        VelibOpenData: 'writable',
-        VelibReservation: 'writable',
-        VelibCanvas: 'writable',
-        VelibInfo: 'writable',
-      },
-    },
-    rules: {
-      'no-var': 'off',
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-    },
-  },
 
   // TypeScript source modules
   {
@@ -46,6 +19,10 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
+        $: 'readonly',
+        M: 'readonly',
+        google: 'readonly',
+        markerClusterer: 'readonly',
       },
     },
     rules: {
@@ -64,6 +41,9 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
+        google: 'readonly',
+        M: 'readonly',
+        markerClusterer: 'readonly',
       },
     },
     rules: {
@@ -82,6 +62,7 @@ export default [
         ...globals.mocha,
         cy: 'readonly',
         Cypress: 'readonly',
+        expect: 'readonly',
       },
     },
     rules: {
