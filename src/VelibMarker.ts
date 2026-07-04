@@ -3,21 +3,17 @@ import { VelibMarkerCluster } from './VelibMarkerCluster'
 import { VelibInfo } from './VelibInfo'
 import { VelibReservation } from './VelibReservation'
 
-const PIN_STYLES: Record<MarkerColor | 'reserved', { background: string; borderColor: string }> = {
-  green: { background: '#00C853', borderColor: '#1B5E20' },
-  blue: { background: '#1565C0', borderColor: '#0D47A1' },
-  red: { background: '#D32F2F', borderColor: '#B71C1C' },
-  reserved: { background: '#29B6F6', borderColor: '#0277BD' },
+const ICONS: Record<MarkerColor | 'reserved', string> = {
+  green: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+  blue: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+  red: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+  reserved: 'http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png',
 }
 
-function createPinContent(
-  style: { background: string; borderColor: string }
-): google.maps.marker.PinElement {
-  return new google.maps.marker.PinElement({
-    background: style.background,
-    borderColor: style.borderColor,
-    glyphColor: '#ffffff',
-  })
+function createIconContent(url: string): HTMLImageElement {
+  const img = document.createElement('img')
+  img.src = url
+  return img
 }
 
 function bgcolorForStation(s: Station): MarkerColor {
@@ -37,9 +33,9 @@ export const VelibMarker = {
     const sessionStation = sessionStorage.getItem('station')
     if (sessionStation !== marker.name) return
     try {
-      marker.content = createPinContent(PIN_STYLES.reserved)
+      marker.content = createIconContent(ICONS.reserved)
     } catch {
-      // PinElement unavailable (e.g. Maps API not loaded in test environment)
+      // content property unavailable in test environment
     }
     VelibMarker.animate(marker)
   },
@@ -60,7 +56,8 @@ export const VelibMarker = {
         const marker = Object.assign(
           new google.maps.marker.AdvancedMarkerElement({
             position: { lat: s.position.lat, lng: s.position.lng },
-            content: createPinContent(PIN_STYLES[bgcolor]),
+            content: createIconContent(ICONS[bgcolor]),
+            gmpClickable: true,
           }),
           {
             address: s.address,
@@ -79,7 +76,7 @@ export const VelibMarker = {
         VelibMarker.click(marker)
         VelibMarker.locations.push(marker)
       } catch {
-        // AdvancedMarkerElement/PinElement unavailable (e.g. Maps API not loaded in test environment)
+        // AdvancedMarkerElement unavailable in test environment
       }
     })
     VelibMarkerCluster.init()
@@ -91,9 +88,9 @@ export const VelibMarker = {
       if (sessionStation === marker.name) {
         marker.element.classList.remove('marker-bounce')
         try {
-          marker.content = createPinContent(PIN_STYLES[marker.bgcolor])
+          marker.content = createIconContent(ICONS[marker.bgcolor])
         } catch {
-          // PinElement unavailable
+          // content property unavailable
         }
       }
     }
