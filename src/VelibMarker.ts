@@ -10,13 +10,14 @@ const PIN_STYLES: Record<MarkerColor | 'reserved', { background: string; borderC
   reserved: { background: '#29B6F6', borderColor: '#0277BD' },
 }
 
-function createPinContent(style: { background: string; borderColor: string }): HTMLElement {
-  const pin = new google.maps.marker.PinElement({
+function createPinContent(
+  style: { background: string; borderColor: string }
+): google.maps.marker.PinElement {
+  return new google.maps.marker.PinElement({
     background: style.background,
     borderColor: style.borderColor,
     glyphColor: '#ffffff',
   })
-  return pin.element
 }
 
 function bgcolorForStation(s: Station): MarkerColor {
@@ -44,7 +45,7 @@ export const VelibMarker = {
   },
 
   click(marker: StationMarker): void {
-    marker.addListener('click', () => {
+    marker.addListener('gmp-click', () => {
       VelibInfo.show(marker)
       VelibReservation.destroyBlock()
       VelibReservation.checkStation(marker)
